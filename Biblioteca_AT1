@@ -1,1 +1,116 @@
+#include<stdio.h>
 
+struct Livro
+{
+
+    char titulo[100];
+    char autor[100];
+    int NumPag;
+
+
+
+    void ler()
+    {
+        fflush(stdin);
+        printf("Digite o titulo do livro: ");
+        scanf("%[^\n]%*c", titulo);
+        printf("Digite o nome do autor: ");
+        scanf("%[^\n]%*c", autor);
+        printf("Digite a quantidade de paginas: ");
+        scanf("%d", &NumPag);
+    }
+
+    void imprimir()
+    {
+        printf("\nTitulo: %s\n", titulo);
+        printf("Autor: %s\n", autor);
+        printf("Numero de paginas: %d\n", NumPag);
+    }
+
+};
+
+struct Biblioteca
+{
+
+    char titulo[100];
+    int qtdLivro = 0;
+    Livro livro[10];
+
+
+    void ler()
+    {
+        if (qtdLivro >= 10)
+        {
+            printf("O Maximo permitido eh 10. Digite outro numero.");
+            return;
+        }
+
+        livro[qtdLivro].ler();
+        qtdLivro++;
+
+    }
+
+    void imprimir()
+    {
+
+        printf("\nQtd de livros: %d\n", qtdLivro);
+        for (int i = 0; i < qtdLivro; i++)
+        {
+            livro[i].imprimir();
+        }
+
+    }
+
+    void livroTotal()
+    {
+        int n;
+        int livroMaior = 0;
+
+        for(int i = 0; i < qtdLivro; i++)
+        {
+            if (livro[i].NumPag > livroMaior)
+            {
+                livroMaior = livro[i].NumPag;
+                n=i;
+            }
+        }
+        printf ("\nO maior livro eh: %s\n",livro[n].titulo);
+    }
+
+
+};
+
+int main()
+{
+
+    Biblioteca b;
+    Livro l;
+    int op = 0;
+
+    while(op != 4)
+    {
+
+        printf("\n-----MENU-----\n");
+        printf("1. Ler\n");
+        printf("2. Imprimir todos os livros\n");
+        printf("3. Imprimir o maior Livro\n");
+        printf("4. Sair\n\n");
+        scanf("%d", &op);
+
+        switch (op)
+        {
+        case 1:
+            b.ler();
+            break;
+
+        case 2:
+            b.imprimir();
+            break;
+
+        case 3:
+            b.livroTotal();
+            break;
+        };
+    }
+    return 0;
+}
